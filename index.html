@@ -97,14 +97,13 @@ h1 .outline{-webkit-text-stroke:1.5px rgba(245,240,232,.2);color:transparent;}
 .hs-l{font-size:.68rem;color:var(--muted);margin-top:.25rem;font-family:'Syne Mono',monospace;letter-spacing:.3px;}
 
 /* ══ PHOTO STRIP ══ */
-.photo-strip{display:grid;grid-template-columns:2fr 1fr 1fr;height:360px;gap:3px;overflow:hidden;}
-.ps-img{background-size:cover;background-position:center;transition:transform .6s ease;}
+.photo-strip{display:grid;grid-template-columns:2fr 1fr 1fr;height:380px;gap:3px;overflow:hidden;}
+.ps-img{background-size:cover;background-position:center;transition:transform .6s ease;overflow:hidden;position:relative;}
 .ps-img:hover{transform:scale(1.04);}
-.ps1{background-image:url('https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?w=900&q=80&auto=format&fit=crop');border-radius:0;}
-.ps2{background-image:url('https://images.unsplash.com/photo-1593766788306-28561086694e?w=600&q=80&auto=format&fit=crop');background-position:center top;}
+.ps1{background-image:url('https://images.unsplash.com/photo-1624526267942-ab0ff8a3e972?w=900&q=80&auto=format&fit=crop');}
+.ps2{background-image:url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600&q=80&auto=format&fit=crop');background-position:center 30%;}
 .ps3{background-image:url('https://images.unsplash.com/photo-1540747913346-19378f9b3d63?w=600&q=80&auto=format&fit=crop');}
-.ps-img{overflow:hidden;position:relative;}
-.ps-img::after{content:'';position:absolute;inset:0;background:rgba(10,10,10,.25);transition:opacity .3s;}
+.ps-img::after{content:'';position:absolute;inset:0;background:rgba(10,10,10,.2);transition:opacity .3s;}
 .ps-img:hover::after{opacity:0;}
 
 /* ══ ABOUT ══ */
@@ -113,8 +112,8 @@ h1 .outline{-webkit-text-stroke:1.5px rgba(245,240,232,.2);color:transparent;}
 .about-img-wrap{position:relative;border-radius:20px;overflow:hidden;height:520px;}
 .about-img{
   width:100%;height:100%;
-  background-image:url('https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?w=800&q=80&auto=format&fit=crop');
-  background-size:cover;background-position:center;
+  background-image:url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=80&auto=format&fit=crop&crop=center');
+  background-size:cover;background-position:center 30%;
   transition:transform .8s ease;
 }
 .about-img-wrap:hover .about-img{transform:scale(1.04);}
@@ -175,13 +174,13 @@ h2 .dim{color:var(--muted);}
 /* ══ REVIEWS ══ */
 #reviews{padding:7rem 0;overflow:hidden;}
 .reviews-head{max-width:1200px;margin:0 auto;padding:0 2.5rem 3.5rem;}
-.rev-rail{display:flex;gap:.75rem;overflow-x:auto;padding:.25rem 2.5rem 1.5rem;scrollbar-width:none;scroll-snap-type:x mandatory;}
-.rev-rail::-webkit-scrollbar{display:none;}
-/* gradient edges */
-.rev-wrap{position:relative;}
-.rev-wrap::before,.rev-wrap::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none;}
+.rev-wrap{position:relative;overflow:hidden;}
+.rev-wrap::before,.rev-wrap::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;}
 .rev-wrap::before{left:0;background:linear-gradient(to right,var(--ink),transparent);}
 .rev-wrap::after{right:0;background:linear-gradient(to left,var(--ink),transparent);}
+.rev-rail{display:flex;gap:.75rem;width:max-content;animation:autoScroll 40s linear infinite;}
+.rev-rail:hover{animation-play-state:paused;}
+@keyframes autoScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 .rc{flex-shrink:0;width:290px;scroll-snap-align:start;background:var(--ink2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:border-color .25s,transform .25s;position:relative;overflow:hidden;}
 .rc:hover{border-color:rgba(192,57,43,.22);transform:translateY(-3px);}
 .rc::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,var(--red),transparent);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
@@ -212,14 +211,7 @@ h2 .dim{color:var(--muted);}
 .b-today{background:rgba(192,57,43,.15);color:var(--red2);}
 /* location photo card */
 .loc-card{border-radius:20px;overflow:hidden;background:var(--ink3);border:1px solid var(--border);}
-.loc-map{
-  height:220px;
-  background-image:url('https://images.unsplash.com/photo-1562088287-bde35a1ea917?w=600&q=80&auto=format&fit=crop');
-  background-size:cover;background-position:center;
-  position:relative;
-}
-.loc-map::after{content:'';position:absolute;inset:0;background:rgba(10,10,10,.2);}
-.loc-map-pin{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);z-index:1;font-size:2rem;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5));}
+.loc-map-pin{display:none;}
 .loc-info{padding:1.5rem;}
 .loc-info h3{font-family:'DM Serif Display',serif;font-size:1.3rem;letter-spacing:-.3px;color:var(--gold);margin-bottom:1.2rem;}
 .li{display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.9rem;font-size:.83rem;color:var(--muted);line-height:1.55;}
@@ -319,9 +311,8 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:4.5rem 2
   h1{font-size:clamp(3.2rem,12vw,6rem);letter-spacing:-1.5px;}
   .hero-inner{padding:0 1.25rem 4rem;}
   .hero-row{flex-direction:column;align-items:flex-start;}
-  .photo-strip{grid-template-columns:1fr;height:auto;}
-  .ps-img{height:200px;}
-  .ps2,.ps3{display:none;}
+  .photo-strip{grid-template-columns:1fr 1fr 1fr;height:220px;}
+  .ps2,.ps3{display:block;}
   .about-split,.info-split,.book-split,.f-top{grid-template-columns:1fr;}
   .coaching-cards{grid-template-columns:1fr;}
   .cc-big{grid-column:span 1;grid-template-columns:1fr;}
@@ -350,7 +341,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:4.5rem 2
     <a href="#about">About</a>
     <a href="#coaching">Coaching</a>
     <a href="#reviews">Reviews</a>
-    <a href="#booking">Book</a>
+    <a href="#info">Hours</a>
     <a href="https://wa.me/919999197769?text=Hi! I'd like to book a session." class="nbk">Book Now</a>
   </div>
 </nav>
@@ -447,7 +438,7 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:4.5rem 2
 
       <!-- Bowling -->
       <div class="cc reveal d1">
-        <div class="cc-img" style="background-image:url('https://images.unsplash.com/photo-1540747913346-19378f9b3d63?w=500&q=80&auto=format&fit=crop');background-position:center;">
+        <div class="cc-img" style="background-image:url('https://images.unsplash.com/photo-1593766788306-28561086694e?w=600&q=80&auto=format&fit=crop&crop=center');background-position:center top;">
           <span class="cc-img-label">Bowling · Action</span>
         </div>
         <div class="cc-body">
@@ -509,8 +500,11 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:4.5rem 2
       <div id="hoursTable"></div>
     </div>
     <div class="loc-card reveal d1">
-      <div class="loc-map">
-        <div class="loc-map-pin">📍</div>
+      <div class="loc-map" style="height:240px;overflow:hidden;border-radius:0;">
+        <iframe
+          src="https://maps.google.com/maps?q=Smash+Cricket+Zone,+Block+23,+Tilak+Nagar,+New+Delhi,+Delhi+110018&output=embed&z=16"
+          width="100%" height="100%" style="border:0;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
       </div>
       <div class="loc-info">
         <h3>Find the Zone</h3>
@@ -546,11 +540,6 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:4.5rem 2
           <a href="https://wa.me/919999197769?text=Hi! I'd like to book a session at Smash Cricket Zone." class="cl">
             <div class="cl-ic">💬</div>
             <div><div class="cl-lbl">Fastest · WhatsApp</div><div class="cl-v">+91 99991 97769</div></div>
-            <span class="cl-arr">→</span>
-          </a>
-          <a href="tel:+919999197769" class="cl">
-            <div class="cl-ic">📞</div>
-            <div><div class="cl-lbl">Call</div><div class="cl-v">+91 99991 97769</div></div>
             <span class="cl-arr">→</span>
           </a>
           <a href="https://www.instagram.com/smashcricketzone/" target="_blank" class="cl">
@@ -627,9 +616,8 @@ footer{background:var(--ink);border-top:1px solid var(--border);padding:4.5rem 2
       <div class="fc">
         <h4>Visit</h4>
         <ul>
-          <li><a href="https://maps.google.com/?q=Smash+Cricket+Zone+Tilak+Nagar" target="_blank">Get Directions</a></li>
-          <li><a href="#">Block 23, Tilak Nagar</a></li>
-          <li><a href="#">Delhi — 110018</a></li>
+          <li><a href="https://maps.google.com/?q=Smash+Cricket+Zone+Tilak+Nagar" target="_blank">Get Directions ↗</a></li>
+          <li><a href="https://maps.google.com/?q=Smash+Cricket+Zone+Tilak+Nagar" target="_blank" style="white-space:normal;line-height:1.5;">23A/1A, Near Choudhary Dairy, Block 23, Tilak Nagar, Delhi — 110018</a></li>
         </ul>
       </div>
     </div>
@@ -675,7 +663,7 @@ hData.forEach((h,i)=>{
   ht.appendChild(r);
 });
 
-// REVIEWS — based on real Justdial/Google aggregated themes
+// REVIEWS — auto-scroll infinite loop (cards duplicated)
 const revs=[
   {text:'Excellent indoor cricket facility in Tilak Nagar. The coach is incredibly knowledgeable and training sessions are genuinely effective. My batting has noticeably improved.',name:'Rahul S.',init:'R',when:'2 weeks ago'},
   {text:'Great facilities for indoor cricket training. Helpful trainers who actually understand cricket technique. Best cricket zone in West Delhi, no question.',name:'Amit K.',init:'A',when:'1 month ago'},
@@ -683,28 +671,18 @@ const revs=[
   {text:'Superb place for serious cricket. The single lane means full focus — no chaos, no distractions. The coaching staff are supportive and very specific in their feedback.',name:'Deepak R.',init:'D',when:'1 month ago'},
   {text:'Best value cricket coaching in Delhi. Effective training sessions, solid pitch, and the Friday early morning hours are a lifesaver for working people.',name:'Priya T.',init:'P',when:'2 months ago'},
   {text:'Came for coaching sessions and was seriously impressed. The trainer knows his cricket, gives precise feedback, and the facility is always well maintained.',name:'Sanjay B.',init:'S',when:'3 weeks ago'},
-  {text:'Brought my colony cricket team for pre-match prep. Excellent setup for the price — instant WhatsApp booking and a really well-managed session.',name:'Mohit G.',init:'M',when:'5 weeks ago'},
-  {text:'The coaching here is legitimately good. Specific, focused feedback on my bowling action that made an immediate difference. I am coming back every week.',name:'Neha P.',init:'N',when:'1 month ago'},
+  {text:'Brought my colony cricket team for pre-match prep. Excellent setup — instant WhatsApp booking and a really well-managed session.',name:'Mohit G.',init:'M',when:'5 weeks ago'},
+  {text:'The coaching here is legitimately good. Specific, focused feedback on my bowling action that made an immediate difference. Coming back every week.',name:'Neha P.',init:'N',when:'1 month ago'},
 ];
 const rail=document.getElementById('revRail');
-revs.forEach(r=>{
+const gSVG=`<svg viewBox="0 0 24 24" fill="none" width="10" height="10"><path fill="#4285f4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.1 22.56 15.28 22.56 12.25z"/><path fill="#34a853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fbbc05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#ea4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>`;
+function mkCard(r){
   const card=document.createElement('div');card.className='rc';
-  card.innerHTML=`
-    <div class="rc-stars">★★★★★</div>
-    <div class="rc-quote">"</div>
-    <p class="rc-text">${r.text}</p>
-    <div class="rc-foot">
-      <div class="rc-av">${r.init}</div>
-      <div>
-        <div class="rc-name">${r.name}</div>
-        <div class="rc-when">
-          <svg viewBox="0 0 24 24" fill="none"><path fill="#4285f4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57C21.36 18.1 22.56 15.28 22.56 12.25z"/><path fill="#34a853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fbbc05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#ea4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-          Google · ${r.when}
-        </div>
-      </div>
-    </div>`;
-  rail.appendChild(card);
-});
+  card.innerHTML=`<div class="rc-stars">★★★★★</div><div class="rc-quote">"</div><p class="rc-text">${r.text}</p><div class="rc-foot"><div class="rc-av">${r.init}</div><div><div class="rc-name">${r.name}</div><div class="rc-when">${gSVG} Google · ${r.when}</div></div></div>`;
+  return card;
+}
+// Render twice — second set is hidden clone for seamless loop
+[...revs,...revs].forEach(r=>rail.appendChild(mkCard(r)));
 
 // DATE
 document.getElementById('dateIn').min=new Date().toISOString().split('T')[0];
